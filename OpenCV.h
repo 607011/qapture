@@ -17,7 +17,7 @@ public:
 public:
         bool startCapture(int width, int height, int fps, int cam = 0);
         bool stopCapture(void);
-        bool isCapturing() const { return (mCamera != NULL); }
+        inline bool isCapturing(void) const { return (mCamera != NULL); }
         bool getImageSize(int& width, int& height) const;
         const QImage& getImage(void);
 

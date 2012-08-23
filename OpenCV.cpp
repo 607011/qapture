@@ -62,13 +62,6 @@ const QImage& OpenCV::getImage(void)
     if (!isCapturing())
         return mImage;
     const IplImage* iplImg = cvQueryFrame(mCamera);
-    // IplImage* edges = cvCreateImage(cvSize(iplImg->width, iplImg->height), IPL_DEPTH_8U, 1);
-    // CvMemStorage* storage = cvCreateMemStorage(0);
-    // cvAdaptiveThreshold(iplImg, edges, 255);
-    // cvFindContours(edges, storage, &mContours, sizeof(CvContour), CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
-    // cvDrawContours(iplImg, mContours, CV_RGB(255,0,0), CV_RGB(0,255,0), 7, 3, CV_AA, cvPoint(0,0));
-    // cvReleaseMemStorage(&storage);
-    // cvReleaseImage(&edges);
     convertIplImageToQImage(iplImg, mImage);
     return mImage;
 }
@@ -76,13 +69,11 @@ const QImage& OpenCV::getImage(void)
 
 void OpenCV::convertIplImageToQImage(const IplImage* iplImg, QImage& image)
 {
-    const int w = iplImg->width;
-    const int h = iplImg->height;
 #pragma omp parallel for
-    for (int y = 0; y < h; ++y) {
+    for (int y = 0; y < iplImg->height; ++y) {
         char* data = iplImg->imageData + y * iplImg->widthStep;
         uint *p = (uint*)image.scanLine(y);
-        for (int x = 0; x < w; ++x) {
+        for (int x = 0; x < iplImg->width; ++x) {
             const int xoff = x * iplImg->nChannels;
             *p++ = qRgb(data[xoff+2], data[xoff+1], data[xoff]);
         }

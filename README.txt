@@ -8,7 +8,7 @@ für ihre Vollständigkeit, Fehlerfreiheit und Eignung für
 einen bestimmten Zweck.
 
 Falls Sie beabsichtigen, den Code in eigenen Produkten zu verwenden,
-so ist das im Rahmen der Apache-Lizenz 2.0 kostenfrei gestattet (siehe
+so ist das im Rahmen der GPLv3 kostenfrei gestattet (siehe
 die Datei LICENSE.txt für weitere Informationen).
 
 
